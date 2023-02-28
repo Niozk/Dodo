@@ -1,19 +1,37 @@
 {
+  "todos": [
+    {
+      "id": 1,
+      "author": "typicode",
+      "todo": "json-server"
+    },
+    {
+      "author": "gmod trolllollor",
+      "todo": "bub ganing",
+      "id": 2
+    },
+    {
+      "author": "who dis",
+      "todo": "hello",
+      "id": 3
+    },
+    {
+      "author": "kaan",
+      "todo": "de banaan",
+      "id": 4
+    }
+  ],
   "posts": [
     {
       "id": 1,
       "title": "json-server",
       "author": "typicode"
-    }
-  ],
-  "comments": [
+    },
     {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "title": "bub ganing",
+      "author": "gmod trolllollor",
+      "id": 2
     }
   ],
-  "profile": {
-    "name": "typicode"
-  }
+  "profile": {}
 }

@@ -1,16 +1,19 @@
 # Dodo
 Simple webapp with the dodo bird as mascot
 ------
-used packages:
+
+used frameworks and packages ( node.js ):
+
+Front-end
+========
+-vue
+-vue router
+-pinia
 
 Back-end
 ========
--Node.js + Express
-
-Dependencies
-============
--axios (nog niet geinstalld kijk maar wat je ermee doet)
--nodemon (kijk of nodig is met json server)
+-express
+-nodemon
 -json-server
 -cors
 -body-parser
