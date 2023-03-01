@@ -1,9 +1,9 @@
 // import { createRequire } from 'module';
 
-const express = require("express");
+const express = require('express');
 const cors = require('cors');
 // const mongoose = require("mongoose");
-const bodyParser = require("body-parser");
+const bodyParser = require('body-parser');
 
 const app = express();
 
@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 //     next();
 // })
 
-//database stuff [MONGOOSE]
+// Database stuff [MONGOOSE]
 // =================
 // const uri = "mongodb+srv://sardar20:Admin25!@doodoocluster.4lxagmy.mongodb.net/?retryWrites=true&w=majority";
 // mongoose.connect(uri, {
@@ -36,7 +36,7 @@ app.use(bodyParser.json());
 
 //routes
 app.get('/', (req, res) => {
-    res.send("hoi home pagina");
+    res.send('hoi home pagina');
 });
 
 const TodosRoute = require('./routes/todos');

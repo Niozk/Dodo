@@ -3,23 +3,45 @@ const axios = require('axios');
 const todo = require('../models/todos');
 const router = express.Router();
 
-// get all todo route
+// Get all todo route
 router.get('/', async (req, res) => {
-    axios.get('http://localhost:5000/todos')
-    .then( res => {
-        const data = res.data.map((item) => ({
-            // id: item.id,
+    try {
+        const response = await axios.get('http://localhost:5000/todos');
+        const todos = response.data.map(item => ({
+            id: item.id,
             author: item.author,
             todo: item.todo,
-            }));
-        console.log(data); // logs all data retrieved from the API endpoint
-    })
-    .catch(error => {
-      console.error(error); // logs any errors that occur during the API request
-    });
+        }));
+        res.json(todos);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
 });
 
-// get all todo route [MONGOOSE]
+// // Get by id [MONGOOSE]
+// router.get('/get/:id', async (req, res) => {
+//     const t = await todo.findById({ _id : req.params.id })
+//     res.json(t)
+// })
+
+// Get by id route
+router.get('/get/:id', async (req, res) => {
+    try {
+        const response = await axios.get(`http://localhost:5000/todos/${req.params.id}`);
+        const todo = {
+            id: response.data.id,
+            author: response.data.author,
+            todo: response.data.todo
+        };
+        res.json(todo);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send('Server Error');
+    }
+});
+
+// // Get all todo route [MONGOOSE]
 // router.get('/', async (req, res) => {
 //     const todos = await todo.find()
 //     res.json(todos)
@@ -39,11 +61,9 @@ router.get('/', async (req, res) => {
 //     res.json(savedTodo)
 // })
 
-// //getter by id
-// router.get('/get/:id', async (req, res) => {
-//     const t = await todo.findById({ _id : req.params.id })
-//     res.json(t)
-// })
+
+
+// =======================================
 
 // //delete a todo by id [MONGOOSE]
 // router.delete('/delete/:id', async (req, res) => {
