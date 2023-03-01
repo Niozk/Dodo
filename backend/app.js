@@ -15,13 +15,6 @@ app.use(cors({
 
 app.use(bodyParser.json());
 
-// app.use(function(req, res, next) {
-//     res.header("Access-Control-Allow-Origin", "*");
-//     res.header("Access-Control-Allow-Origin", "GET,HEAD,OPTIONS,POST,PUT,DELETE");
-//     res.header("Access-Control-Allow-Origin", "Auth-token, Origin, X-Requested-With, Content-Type, Accept");
-//     next();
-// })
-
 // Database stuff [MONGOOSE]
 // =================
 // const uri = "mongodb+srv://sardar20:Admin25!@doodoocluster.4lxagmy.mongodb.net/?retryWrites=true&w=majority";
@@ -40,7 +33,7 @@ app.get('/', (req, res) => {
 });
 
 const TodosRoute = require('./routes/todos');
-app.use('/todos', TodosRoute); // FIX DIT <================================
+app.use('/todos', TodosRoute);
 
 //start server
 app.listen(8080, () => {
