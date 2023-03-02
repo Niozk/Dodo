@@ -3,13 +3,13 @@
         <h1>All todos</h1>
         <button @click="newTodo()">New Todo</button>
         <br>
-        <input type="text" placeholder="Author" v-model="this.newAuthor">
-        <span> Test: {{ newAuthor }} </span>
+        <input type="text" placeholder="Author" v-model="newAuthorItem">
+        <span> Test: {{ newAuthorItem }} </span>
         <br>
-        <input type="text" placeholder="Todo" v-model="this.newTodoItem">
+        <input type="text" placeholder="Todo" v-model="newTodoItem">
         <span> Test: {{ newTodoItem }} </span>
 
-        <div v-for="todo in todoItems" :key="todo._id">
+        <div v-for="todo in todos" :key="todo._id">
             <router-link :to="`/todo/${todo._id}`"> <!-- zie de `` inplaats van '' -->
                 <h4>
                     {{ todo.author }}
@@ -24,27 +24,49 @@
     </div>
 </template>
 
-<script>
+<script setup>
+    import { ref, computed, onMounted} from 'vue';
+    import { useTodoStore } from '../stores/counter.js';
+
+    const store = useTodoStore();
+    const newAuthorItem = ref('')
+    const newTodoItem = ref('')
+
+    onMounted(() => {
+        store.getTodos();
+    });
+
+    const todos = computed(() => {
+        return store.todos;
+    });
+
+    const newTodo = async () => {
+        const author = newAuthorItem.value;
+        const todo = newTodoItem.value;
+
+        const newTodo = await store.newTodo({ author, todo });
+        return { newTodo };
+    };
+</script>
+
+<!-- <script>
+
+import { useTodoStore } from '../stores/counter.js';
+
 export default {
     name: 'App',
-    data() {
-        return {
-            newAuthor: '',
-            newTodoItem: '',
-            todoItems: []
-        }
-    },
     mounted() {
-        this.getAll()
+        const store = useTodoStore();
+        store.getTodos();
+    },
+    computed: {
+        todos() {
+            const store = useTodoStore();
+            return store.todos;
+        },
     },
     components: {},
     methods: {
-        getAll: function() {
-            fetch('http://localhost:8080/todos')
-            .then(res => res.json())
-            .then(data => this.todoItems = data)
-            .catch(err => console.log(err.message))
-        },
         newTodo: function() {
             const requestOptions = {
                 method: 'POST',
@@ -72,11 +94,7 @@ export default {
         }
     }
 }
-</script>
+</script> -->
 
 <style scoped>
-
-
-
-
 </style>

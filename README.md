@@ -9,6 +9,7 @@ Front-end
 -vue
 -vue router
 -pinia
+-axios
 
 Back-end
 ========
@@ -17,3 +18,4 @@ Back-end
 -json-server
 -cors
 -body-parser
+-axios
