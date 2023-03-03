@@ -10,6 +10,7 @@ Front-end
 -vue router
 -pinia
 -axios
+-@vueuse/core
 
 Back-end
 ========

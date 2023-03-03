@@ -9,17 +9,17 @@
         <input type="text" placeholder="Todo" v-model="newTodoItem">
         <span> Test: {{ newTodoItem }} </span>
 
-        <div v-for="todo in todos" :key="todo._id">
-            <router-link :to="`/todo/${todo._id}`"> <!-- zie de `` inplaats van '' -->
-                <h4>
-                    {{ todo.author }}
-                </h4>
-                <p>
-                    {{ todo.todo }}
-                </p>
-                <button @click="editTodo(todo._id)">edit Todo</button>
+        <div v-for="todo in todos" :key="todo.id">
+            <h4>
+                {{ todo.author }}
+            </h4>
+            <p>
+                {{ todo.todo }}
+            </p>
+            <router-link :to="`/todo/${todo.id}`">
+                <button v-on:click="getTodoById(todo.id)">edit Todo</button>
             </router-link>
-            <button @click="deleteTodo(todo._id)">delete Todo</button>
+            <button v-on:click="deleteTodo(todo.id)">delete Todo</button>
         </div>
     </div>
 </template>
@@ -47,54 +47,17 @@
         const newTodo = await store.newTodo({ author, todo });
         return { newTodo };
     };
+
+    const deleteTodo = async (id) => {
+        store.deleteTodo(id);
+    };
+
+    const getTodoById = async (id) => {
+        const todo = await store.getTodoById(id);
+        store.currentTodo = todo;
+    };
+
 </script>
-
-<!-- <script>
-
-import { useTodoStore } from '../stores/counter.js';
-
-export default {
-    name: 'App',
-    mounted() {
-        const store = useTodoStore();
-        store.getTodos();
-    },
-    computed: {
-        todos() {
-            const store = useTodoStore();
-            return store.todos;
-        },
-    },
-    components: {},
-    methods: {
-        newTodo: function() {
-            const requestOptions = {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                    // 'auth-token': 'state.token' kan je toevoege lol
-                },
-                body: JSON.stringify({
-                    author: this.newAuthor,
-                    todo: this.newTodoItem
-                })
-            }
-            fetch('http://localhost:8080/todos/new',
-            requestOptions)
-        },
-        deleteTodo: function(_id) {
-            fetch('http://localhost:8080/todos/delete/' + _id, 
-            { method: 'DELETE'})
-            .then(() => { })
-        },
-        editTodo: function(_id) {
-            fetch('http://localhost:8080/todos/put/' + _id, 
-            { method: 'PUT'})
-            .then(() => { })
-        }
-    }
-}
-</script> -->
 
 <style scoped>
 </style>

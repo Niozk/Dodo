@@ -102,7 +102,10 @@ router.put('/put/:id', async (req, res) => {
         if (!response.data) {
             return res.status(404).json({error: 'Todo not found'});
         }
-        await axios.put(`http://localhost:5000/todos/${req.params.id}`, {author: 'jippie!'});
+        await axios.put(`http://localhost:5000/todos/${req.params.id}`, {
+            author: req.body.author,
+            todo: req.body.todo
+        });
         res.json({ success: true });
     } catch (error) {
         console.error(error);
