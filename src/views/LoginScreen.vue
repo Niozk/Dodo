@@ -13,7 +13,7 @@
 </template>
 
 <script>
-    // import TestButton from '../components/TestButton.vue';  <----- ff commenten omdat ik was vergete hoe te importe lol
+    // import TestButton from '../components/TestButton.vue';  <----- Een comment omdat ik (Sardar) was vergeten hoe ik moest importen "lol".
 export default {
     name: 'App',
     components: {},
