@@ -28,10 +28,6 @@ const register = async () => {
         console.log('error:', error);
     }
 };
-
-const signInWithGoogle = () => {
-
-};
 </script>
 
 <style scoped>

@@ -1,11 +1,13 @@
 <template>
     <div class="center">
         <h2>Login to your account</h2>
-        <form>
-            <input type="text" title="username" placeholder="username" />
-            <input type="password" title="password" placeholder="password" />
-            <button type="submit" class="btn">Login</button>
+        <form @submit.prevent="login">
+            <input type="email" title="email" placeholder="e-mail" v-model="email" />
+            <input type="password" title="password" placeholder="password" v-model="password" />
+            <p v-if="errMsg">{{ errMsg }}</p>
             <a class="forgot" href="#">Forgot Username?</a>
+            <button type="submit" class="btn">Login</button>
+            <button @click="signInWithGoogle" class="btn">Login with google</button>
         </form>
         <router-link to="/register">new? register</router-link>
         <router-link to="/todos">naar doodoo</router-link>
@@ -13,17 +15,51 @@
     </div>
 </template>
 
-<script>
-    // import TestButton from '../components/TestButton.vue';  <----- Een comment omdat ik (Sardar) was vergeten hoe ik moest importen "lol".
-export default {
-    name: 'App',
-    components: {},
-    data() {
-        return {
+<script setup>
+import { ref } from 'vue';
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import { useRouter } from 'vue-router';
+const email = ref('');
+const password = ref('');
+const errMsg = ref();
+const router = useRouter();
+
+const login = async () => { 
+    console.log('login button clicked');
+    try {
+        const userCredential = await signInWithEmailAndPassword(getAuth(), email.value, password.value);
+        console.log('login successfully', userCredential.user);
+        router.push('/todos');
+    } catch (error) {
+        console.log('error:', error);
+        switch (error.code) {
+            case "auth/invalid-email":
+                errMsg.value = "Invalid email";
+                break;
+            case "auth/user-not-found":
+                errMsg.value = "No account for that email was found";
+                break;
+            case "auth/wrong-password":
+                errMsg.value = "Incorrect password";
+                break;
+            default:
+                errMsg.value = "Email or password is incorrect";
+                break;
         }
-    },
-    methods: {}
-}
+    }
+};
+
+const signInWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(getAuth(), provider)
+    .then((result) => {
+        console.log(result.user);
+        router.push('/todos');
+    })
+    .catch((error) => {
+        console.log(error);
+    });
+};
 </script>
 
 <style scoped>

@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>All todos</h1>
-        <!-- <button @click="logOut()">log out</button> -->
+        <button @click="logOut()" v-if="isLoggedIn">log out</button>
         <button @click="newTodo()">New Todo</button>
         <br>
         <input type="text" placeholder="Author" v-model="newAuthorItem">
@@ -28,14 +28,38 @@
 <script setup>
     import { ref, computed, onMounted} from 'vue';
     import { useTodoStore } from '../stores/counter.js';
+    import { getAuth, onAuthStateChanged, signOut } from 'firebase/auth';
+    import { useRouter } from 'vue-router';
 
     const store = useTodoStore();
     const newAuthorItem = ref('')
     const newTodoItem = ref('')
 
+    // authentication
+    const isLoggedIn = ref(false);
+    const router = useRouter();
+    let auth;
+    // ==========
+
     onMounted(() => {
         store.getTodos();
+        // authentication
+        auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                isLoggedIn.value = true;
+            } else {
+                isLoggedIn.value = false;
+            }
+        })
+        // ==========
     });
+
+    const logOut = () => {
+        signOut(auth).then(() => {
+            router.push('/');
+        });
+    }
 
     const todos = computed(() => {
         return store.todos;
