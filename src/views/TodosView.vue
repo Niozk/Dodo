@@ -1,6 +1,7 @@
 <template>
     <div>
         <h1>All todos</h1>
+        <!-- <button @click="logOut()">log out</button> -->
         <button @click="newTodo()">New Todo</button>
         <br>
         <input type="text" placeholder="Author" v-model="newAuthorItem">

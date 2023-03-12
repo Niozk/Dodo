@@ -3,10 +3,11 @@
         <h2>Login to your account</h2>
         <form>
             <input type="text" title="username" placeholder="username" />
-            <input type="password" title="username" placeholder="password" />
+            <input type="password" title="password" placeholder="password" />
             <button type="submit" class="btn">Login</button>
             <a class="forgot" href="#">Forgot Username?</a>
         </form>
+        <router-link to="/register">new? register</router-link>
         <router-link to="/todos">naar doodoo</router-link>
         <!-- <router-link to="/">terug</router-link> -->
     </div>
@@ -17,6 +18,10 @@
 export default {
     name: 'App',
     components: {},
+    data() {
+        return {
+        }
+    },
     methods: {}
 }
 </script>

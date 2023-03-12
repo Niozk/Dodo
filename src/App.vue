@@ -1,18 +1,8 @@
 <template>
-    <router-view></router-view>
+    <router-view />
 </template>
 
 <script>
-
-export default {
-    name: 'App',
-    components: {},
-    data() {
-        return {
-        }
-    },
-    methods: {}
-}
 </script>
 
 <style>
@@ -27,5 +17,3 @@ body {
 </style>
 
 <!-- <MyButton v-if="$route.path=='/login'" text="heol"/> -->
-
-<!-- <router-link to="/login">login</router-link> -->

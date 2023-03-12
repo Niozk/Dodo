@@ -20,3 +20,4 @@ Back-end
 -cors
 -body-parser
 -axios
+-firebase auth
