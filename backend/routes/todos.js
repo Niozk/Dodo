@@ -4,12 +4,14 @@ const todo = require('../models/todoModel');
 const router = express.Router();
 
 // Get all todo route
-router.get('/', async (req, res) => {
+router.get('/:userId', async (req, res) => {
     try {
-        const response = await axios.get('http://localhost:5000/todos');
+        const userId = req.params.userId;
+        const response = await axios.get(`http://localhost:5000/todos?userId=${userId}`);
         const todos = response.data.map(item => ({
             id: item.id,
             author: item.author,
+            userId: item.userId,
             todo: item.todo,
         }));
         res.json(todos);
@@ -52,7 +54,8 @@ router.post('/new', async (req, res) => {
     try {
         const response = await axios.post('http://localhost:5000/todos', {
             author: req.body.author,
-            todo: req.body.todo
+            todo: req.body.todo,
+            userId: req.body.userId
         });
         res.json(response.data);
     } catch (error) {
@@ -104,7 +107,8 @@ router.put('/put/:id', async (req, res) => {
         }
         await axios.put(`http://localhost:5000/todos/${req.params.id}`, {
             author: req.body.author,
-            todo: req.body.todo
+            todo: req.body.todo,
+            userId: req.body.userId
         });
         res.json({ success: true });
     } catch (error) {

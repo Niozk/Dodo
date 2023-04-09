@@ -3,6 +3,7 @@
         <h1>All todos</h1>
         <button @click="logOut()" v-if="isLoggedIn">log out</button>
         <button @click="newTodo()">New Todo</button>
+        <button @click="hoi">CLICK MEEEEEEEE</button>
         <br>
         <input type="text" placeholder="Author" v-model="newAuthorItem">
         <span> Test: {{ newAuthorItem }} </span>
@@ -39,6 +40,17 @@
     const isLoggedIn = ref(false);
     const router = useRouter();
     let auth;
+    // ==========
+
+    // DEZE FUNCTIE IS VOOR TESTEN
+    function hoi() {
+        const auth = getAuth();
+        const user = auth.currentUser.uid;
+        const currentUserId = getAuth().currentUser.uid;
+        console.log(user);
+        console.log(auth);
+        console.log('HEY: ' + currentUserId);
+    }
     // ==========
 
     onMounted(() => {

@@ -16,7 +16,6 @@
         <p>
             {{ currentTodo.todo }}
         </p>
-
     </div>
 </template>
 

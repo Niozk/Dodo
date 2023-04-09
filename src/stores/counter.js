@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { defineStore } from 'pinia'
 import { useStorage } from '@vueuse/core'
+import { getAuth } from 'firebase/auth';
 
 export const useTodoStore = defineStore('store', {
     state: () => ({
@@ -10,7 +11,8 @@ export const useTodoStore = defineStore('store', {
     actions: {
         async getTodos() {
             try {
-                const response = await axios.get('http://localhost:8080/todos');
+                const userId = getAuth().currentUser.uid;
+                const response = await axios.get(`http://localhost:8080/todos/${userId}`);
                 const todos = response.data.map(item => ({
                     id: item.id,
                     author: item.author,
@@ -23,7 +25,7 @@ export const useTodoStore = defineStore('store', {
         },
         async getTodoById(id) {
             try {
-                const response = await axios.get('http://localhost:8080/todos/get/' + id);
+                const response = await axios.get(`http://localhost:8080/todos/get/${id}`);
                 const todo = {
                     id: response.data.id,
                     author: response.data.author,
@@ -36,9 +38,11 @@ export const useTodoStore = defineStore('store', {
         },
         async newTodo({ author, todo }) {
             try {
+                const userId = getAuth().currentUser.uid;
                 const response = await axios.post('http://localhost:8080/todos/new', {
                     author,
                     todo,
+                    userId
                 });
                 this.getTodos();
                 return response.data;
@@ -49,11 +53,11 @@ export const useTodoStore = defineStore('store', {
         },
         async deleteTodo(id) {
             try {
-                const response = await axios.get('http://localhost:8080/todos/get/' + id);
+                const response = await axios.get(`http://localhost:8080/todos/get/${id}`);
                 if (!response.data) {
                     return console.log('todo not found');
                 }
-                await axios.delete('http://localhost:8080/todos/delete/' + id);
+                await axios.delete(`http://localhost:8080/todos/delete/${id}`);
                 this.getTodos();
             } catch (error) {
                 console.error(error);
@@ -61,19 +65,20 @@ export const useTodoStore = defineStore('store', {
         },
         async updateTodo (id, author, todo) {
             try {
-                const response = await axios.get(`http://localhost:8080/todos/get/${id}`)
+                const userId = getAuth().currentUser.uid;
+                const response = await axios.get(`http://localhost:8080/todos/get/${id}`);
                 if (!response.data) {
                     return console.log('todo not found');
                 }
                 await axios.put(`http://localhost:8080/todos/put/${id}`, {
                     author,
-                    todo
+                    todo,
+                    userId
                 });
                 this.getTodoById(id);
             } catch (error) {
                 console.error(error)
             }
         }
-        // je kan op meerdere manieren de link id setten zoals ${id} met ` ` of + id met normale ' '.
     },
 })

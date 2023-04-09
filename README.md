@@ -2,7 +2,7 @@
 Simple webapp with the dodo bird as mascot
 ------
 
-used frameworks and packages ( node.js ):
+used frameworks and packages ( package manager: node.js ):
 
 Front-end
 ========
@@ -12,12 +12,20 @@ Front-end
 -axios
 -@vueuse/core
 
+Dev Dependencies
+============
+-vite
+-eslint
+
 Back-end
 ========
 -express
--nodemon
 -json-server
 -cors
 -body-parser
 -axios
--firebase auth
+-firebase (for auth)
+
+Dev Dependencies
+============
+-nodemon

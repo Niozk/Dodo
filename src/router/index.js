@@ -26,13 +26,15 @@ const router = createRouter({
 			component: TodosView,
 			meta: {
 				requiresAuth: true
-
 			}
 		},
 		{
 			path: '/todo/:id',
 			name: 'TodoSingle',
-			component: TodoSingle
+			component: TodoSingle,
+			meta: {
+				requiresAuth: true
+			}
 		}
 		// {
 		//   path: '/',
@@ -63,5 +65,27 @@ router.beforeEach(async (to, from, next) => {
 		next();
 	}
 })
+
+router.beforeEach(async (to, from, next) => {
+	const currentUser = await getCurrentUser();
+	const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+	const isLoginPage = to.path === '/login';
+	const isRegisterPage = to.path === '/register';
+
+	if (requiresAuth && !currentUser && !isLoginPage && !isRegisterPage) {
+		// If the user is not authenticated and the route requires authentication,
+		// and the route is not the login page or the register page, redirect to the login page
+		next({ path: '/login' });
+	} else if (currentUser && (isLoginPage || isRegisterPage)) {
+		// If the user is authenticated and trying to access the login page or the register page,
+		// redirect to the main page
+		next({ path: '/todos' });
+	} else {
+		// Otherwise, allow the user to proceed
+		next();
+	}
+});
+  
+  
 
 export default router
