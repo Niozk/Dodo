@@ -18,10 +18,16 @@
       "id": 9
     },
     {
-      "author": "hoop",
-      "todo": "ik heb het",
+      "author": "the THIRD",
+      "todo": "versiont",
       "userId": "iCpwm8KuvJWZbzf91QIZ0ubzYGa2",
       "id": 10
+    },
+    {
+      "author": "opgeslagen",
+      "todo": "hier",
+      "userId": "t22Do0tRjyOVgf2u1hePBMvalfC3",
+      "id": 11
     }
   ],
   "posts": [
@@ -31,8 +37,8 @@
       "author": "typicode"
     },
     {
-      "title": "bub ganing",
-      "author": "gmod trolllollor",
+      "title": "typicode",
+      "author": "json-server",
       "id": 2
     }
   ],
