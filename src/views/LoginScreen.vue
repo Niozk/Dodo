@@ -92,6 +92,8 @@ const signInWithGoogle = () => {
 }
 
 form {
+    display: flex;
+    flex-direction: column;
     margin-top: -20px;
     padding: 10px;
 }

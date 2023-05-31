@@ -28,6 +28,18 @@
       "todo": "hier",
       "userId": "t22Do0tRjyOVgf2u1hePBMvalfC3",
       "id": 11
+    },
+    {
+      "author": "gedit",
+      "todo": "deze todo",
+      "userId": "07NCXpl049NaQ1DvbJxgrN0DqiH2",
+      "id": 12
+    },
+    {
+      "author": "al gedaan",
+      "todo": "al gedan",
+      "userId": "07NCXpl049NaQ1DvbJxgrN0DqiH2",
+      "id": 13
     }
   ],
   "posts": [
