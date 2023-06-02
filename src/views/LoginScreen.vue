@@ -10,7 +10,7 @@
             <button @click="signInWithGoogle" class="btn">Login with google</button>
         </form>
         <router-link to="/register">new? register</router-link>
-        <router-link to="/todos">naar doodoo</router-link>
+        <router-link to="/todos">naar dodo</router-link>
         <!-- <router-link to="/">terug</router-link> -->
     </div>
 </template>
